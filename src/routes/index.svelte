@@ -39,7 +39,7 @@
     transform-origin: left;
     transform-style: preserve-3D;
     transform: rotate3d(0, 1, 0, 0deg);
-    background-image: url('./flowers.jpg');
+    background-image: url('../src/images/flowers.jpg');
     background-size: cover;
     background-repeat: norepeat;
 
