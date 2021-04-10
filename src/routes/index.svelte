@@ -1,7 +1,7 @@
 <script lang="ts">
   import Card from '../lib/Card.svelte'
 
-  const countDownDate = new Date('Apr 27, 2020 00:00:00').getTime()
+  const countDownDate = new Date('Apr 27, 2021 00:00:00').getTime()
   let isLive
   let distance
   let days
