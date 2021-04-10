@@ -2,7 +2,7 @@
   "name": "allisonbabbitt.com",
   "version": "0.0.1",
   "scripts": {
-    "dev": "svelte-kit dev",
+    "dev": "npx kill-port 3000 && svelte-kit dev",
     "build": "svelte-kit build",
     "start": "svelte-kit start",
     "lint": "prettier --check . && eslint --ignore-path .gitignore .",

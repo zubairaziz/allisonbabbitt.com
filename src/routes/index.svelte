@@ -1,68 +1,54 @@
 <script lang="ts">
-  import Confetti from '$lib/Confetti.svelte'
-  import FrontPanel from '../lib/FrontPanel.svelte'
-  import RightPanel from '../lib/RightPanel.svelte'
-  let isOpen = false
+  import Card from '../lib/Card.svelte'
+
+  const countDownDate = new Date('Apr 27, 2020 00:00:00').getTime()
+  let isLive
+  let distance
+  let days
+  let hours
+  let minutes
+  let seconds
+
+  const x = setInterval(() => {
+    const now = new Date().getTime()
+
+    distance = countDownDate - now
+    days = Math.floor(distance / (1000 * 60 * 60 * 24))
+    hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+    minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))
+    seconds = Math.floor((distance % (1000 * 60)) / 1000)
+
+    if (distance <= 0) {
+      isLive = distance <= 0
+      clearInterval(x)
+    }
+  }, 1000)
 </script>
 
-<main class={`relative h-screen w-screen bg-gradient-to-b from-lavender-500 to-purple-200 ${isOpen ? 'open' : ''}`}>
-  <Confetti />
-  <div
-    class="cursor-pointer absolute left-1/2 top-1/2 transform-gpu -translate-x-1/2 -translate-y-1/2 duration-500 transition-all ease-in-out js-card-opener"
-    on:click={() => (isOpen = !isOpen)}
-  >
-    <div class="card transition-all duration-500 w-[80vw] h-[104vw] block max-w-[500px] max-h-[650px]">
-      <div class="card-panel front z-[1]">
-        <FrontPanel />
-      </div>
-      <div class="card-panel inside-left !border-l z-0" />
-      <div class="card-panel inside-right !border-l-0 z-[-1]">
-        <RightPanel />
+<div class={`relative h-screen w-screen`}>
+  {#if !isLive}
+    <div class="relative h-screen w-screen bg-gradient-to-b from-lavender-500 to-purple-200">
+      <div class="h-full w-full grid place-content-center p-4">
+        <div
+          class="p-8 bg-pink-50 text-lg text-purple-600 rounded-xl shadow-md flex flex-col text-center w-[90vw] md:w-[50vw] lg:w-[33vw] xl:w-[500px]"
+        >
+          <div class="text-2xl mb-4">Site will be live in:</div>
+          <div class="mb-4 tabular-nums">
+            {`
+            ${days} day${days === 1 ? '' : 's'}
+            ${hours} hour${hours === 1 ? '' : 's'}
+            ${minutes} minute${minutes === 1 ? '' : 's'}  
+            ${seconds} second${seconds === 1 ? '' : 's'} 
+            `}
+          </div>
+          <div class="text-xl mb-4">See you soon</div>
+        </div>
       </div>
     </div>
-  </div>
-</main>
+  {:else}
+    <Card />
+  {/if}
+</div>
 
 <style style lang="postcss">
-  .js-card-opener {
-    perspective: 1400px;
-  }
-
-  .card {
-    transform: rotateX(30deg);
-    transform-style: preserve-3d;
-  }
-
-  .card-panel {
-    @apply border-gray-600 border-2 bg-lavender-50 absolute w-full h-full inset-0 transition-all duration-1000 ease-in-out;
-    backface-visibility: visible;
-    transform-origin: left;
-    transform-style: preserve-3D;
-    transform: rotate3d(0, 1, 0, 0deg);
-    background-image: url('../src/images/flowers.jpg');
-    background-size: cover;
-    background-repeat: norepeat;
-
-    &.front {
-      backface-visibility: hidden;
-    }
-  }
-
-  .open {
-    .js-card-opener {
-      @apply md:translate-x-0;
-    }
-
-    .card {
-      transform: rotateX(0deg);
-    }
-
-    .front {
-      transform: rotate3d(0, 1, 0, -170deg);
-    }
-
-    .inside-left {
-      transform: rotate3d(0, 1, 0, -170deg);
-    }
-  }
 </style>
