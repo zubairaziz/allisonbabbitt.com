@@ -1,6 +1,6 @@
 const sveltePreprocess = require('svelte-preprocess')
 const pkg = require('./package.json')
-const static = require('@sveltejs/adapter-static')
+const netlify = require('@sveltejs/adapter-netlify')
 
 /** @type {import('@sveltejs/kit').Config} */
 module.exports = {
@@ -13,7 +13,7 @@ module.exports = {
     }),
   ],
   kit: {
-    adapter: static(),
+    adapter: netlify(),
     target: '#svelte',
     vite: {
       ssr: {
