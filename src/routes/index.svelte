@@ -26,7 +26,7 @@
 </script>
 
 <div class={`relative h-screen w-screen`}>
-  {#if !isLive}
+  <!-- {#if !isLive}
     <div class="relative h-screen w-screen bg-gradient-to-b from-lavender-500 to-purple-200">
       <div class="h-full w-full grid place-content-center p-4">
         <div
@@ -45,9 +45,9 @@
         </div>
       </div>
     </div>
-  {:else}
-    <Card />
-  {/if}
+  {:else} -->
+  <Card />
+  <!-- {/if} -->
 </div>
 
 <style style lang="postcss">
